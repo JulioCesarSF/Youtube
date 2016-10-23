@@ -10,11 +10,10 @@
 		<item value="709" key="DIALOG_X_ORIGIN"/>
 		<item value="76" key="DIALOG_Y_ORIGIN"/>
 	</section>
-	<section name="SourceActionDialog.methods">
-		<item value="false" key="SynchronizedModifier"/>
-		<item value="false" key="Comments"/>
-		<item value="1" key="VisibilityModifier"/>
-		<item value="false" key="FinalModifier"/>
+	<section name="ExtractMethodWizard">
+		<item value="false" key="GenerateJavadoc"/>
+		<item value="2" key="AccessModifier"/>
+		<item value="false" key="ThrowRuntimeExceptions"/>
 	</section>
 	<section name="NewClassWizardPage">
 		<item value="false" key="create_constructor"/>
@@ -23,15 +22,11 @@
 	<section name="OptionalMessageDialog.hide.">
 		<item value="true" key="org.eclipse.jdt.ui.typecomment.deprecated"/>
 	</section>
-	<section name="quick_assist_proposal_size">
-	</section>
 	<section name="SourceActionDialog.constructors">
 		<item value="false" key="SynchronizedModifier"/>
 		<item value="false" key="Comments"/>
 		<item value="1" key="VisibilityModifier"/>
 		<item value="false" key="FinalModifier"/>
-	</section>
-	<section name="completion_proposal_size">
 	</section>
 	<section name="DialogBounds_GetterSetterTreeSelectionDialog">
 		<item value="528" key="DIALOG_WIDTH"/>
@@ -39,6 +34,20 @@
 		<item value="696" key="DIALOG_HEIGHT"/>
 		<item value="704" key="DIALOG_X_ORIGIN"/>
 		<item value="64" key="DIALOG_Y_ORIGIN"/>
+	</section>
+	<section name="RefactoringWizard.preview">
+		<item value="600" key="width"/>
+		<item value="400" key="height"/>
+	</section>
+	<section name="SourceActionDialog.methods">
+		<item value="false" key="SynchronizedModifier"/>
+		<item value="false" key="Comments"/>
+		<item value="1" key="VisibilityModifier"/>
+		<item value="false" key="FinalModifier"/>
+	</section>
+	<section name="quick_assist_proposal_size">
+	</section>
+	<section name="completion_proposal_size">
 	</section>
 	<section name="AddGetterSetterDialog">
 		<item value="true" key="SortOrdering"/>

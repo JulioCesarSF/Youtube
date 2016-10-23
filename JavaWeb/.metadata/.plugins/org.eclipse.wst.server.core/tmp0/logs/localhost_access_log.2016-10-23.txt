@@ -1,0 +1,8 @@
+127.0.0.1 - - [23/Oct/2016:15:06:49 -0200] "GET / HTTP/1.1" 404 1000
+0:0:0:0:0:0:0:1 - - [23/Oct/2016:15:06:50 -0200] "GET /JavaWeb/cadastrar.jsp HTTP/1.1" 200 1679
+0:0:0:0:0:0:0:1 - - [23/Oct/2016:15:06:51 -0200] "GET /JavaWeb/css/bootstrap.min.css HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [23/Oct/2016:15:06:57 -0200] "POST /JavaWeb/Produto HTTP/1.1" 200 1729
+127.0.0.1 - - [23/Oct/2016:15:10:26 -0200] "GET / HTTP/1.1" 404 1000
+0:0:0:0:0:0:0:1 - - [23/Oct/2016:15:10:27 -0200] "GET /JavaWeb/cadastrar.jsp HTTP/1.1" 200 1791
+0:0:0:0:0:0:0:1 - - [23/Oct/2016:15:10:40 -0200] "POST /JavaWeb/Produto HTTP/1.1" 200 1841
+0:0:0:0:0:0:0:1 - - [23/Oct/2016:15:10:41 -0200] "GET /JavaWeb/Produto?acao=listar HTTP/1.1" 200 1638

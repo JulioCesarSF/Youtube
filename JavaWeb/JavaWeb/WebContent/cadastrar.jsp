@@ -32,6 +32,9 @@
 			method é o doPost ou doGet
 			-->
 			<form action="Produto" method="post">
+			
+			<!-- input hidden com a acao e qual ação faremos -->
+				<input type="hidden" name="acao" value="cadastrar">
 				<div class="form-group">
 					<label for="idNome">Nome</label>
 					<!-- não esquecer de colocar a propriedade name -->
@@ -49,8 +52,13 @@
 			</form>
 			
 		</div>
+		<!-- para mandar a acao devemos passar pela URL -->
+		<c:url var="link" value="Produto">
+			<c:param name="acao" value="listar"></c:param>
+		</c:url>
 		
-		<a href="Produto" class="btn btn-success">Listar</a>
+		<!-- no próximo vídeo faremos um menu -->
+		<a href="${link }" class="btn btn-success">Listar</a>
 	</div>
 	
 </div>

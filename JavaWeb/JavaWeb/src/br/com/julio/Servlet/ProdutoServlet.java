@@ -22,82 +22,86 @@ import br.com.julio.beans.Produto;
 
 @WebServlet("/Produto")
 @SuppressWarnings("serial")
-public class ProdutoServlet extends HttpServlet{
+public class ProdutoServlet extends HttpServlet {
 
-	
-	//doPost para cadastrar
-	//página de cadastro é cadastro.jsp
-	//doPost vem do formulário
+	// doPost para cadastrar
+	// página de cadastro é cadastro.jsp
+	// doPost vem do formulário
+	// da forma como está agora apenas conseguimos processar o cadastrar de um
+	// produto
+	// vamos alterar o formulario com um campo hidden (name/value) e adicionar
+	// um switch
+	// faremos também o "refactoring de métodos"
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//Esses parametros são o names no formulário na página JSP
-		//Já faremos o formulário
-		String nome = req.getParameter("nome");
-		String valor = req.getParameter("valor");
-		
-		//Objeto Produto para cadastrar (deve ter um construtor adquado, vamos modificar)
-		Produto produto = new Produto(nome, Double.parseDouble(valor));
-		
-		//Objeto Connection
-		Connection con = null;
-		
-		try {
-			//Abrir a conexão
-			con = ConexaoFactory.getInst().getConnection("youtube", "1234");
-			//Chamar o BO para validar a regra de negócio e efetuar
-			//operação no banco chamando DAO
-			ProdutoBO.cadastrar(produto, con);
-			
-			//adicionar uma mensagem de sucesso
-			//vou usar bootstrap no jsp			
-			req.setAttribute("tipoMensagem", "alert alert-success");
-			req.setAttribute("mensagem", "Cadastro realizado com sucesso!");
-			
-		} catch (Exception e) {	
-			//modificar de local para retornar a mensagem
-			req.setAttribute("tipoMensagem", "alert alert-danger");
-			req.setAttribute("mensagem", "Cadastro NÃO realizado!");
-			e.printStackTrace();			
-		}finally {
-			//como abrimos uma conexão a mesma deve ser fechada
-			try {
-				if(con != null){
-					con.close();
-				}
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			
-			}
-			//efetuado o cadastro ou não mandamos para a tela cadastrar.jsp
-			req.getRequestDispatcher("cadastrar.jsp").forward(req, resp);
+
+		// a acao "cadastrar" virá aqui
+		String acao = req.getParameter("acao");
+
+		// vamos aproveitar e refatorar para métodos
+
+		switch (acao) {
+		case "cadastrar":
+			// toda a lógica para cadastrar
+			// com a refatoração o código fica mais legivel e organizado
+			cadastrarProduto(req, resp, pegarProduto(req));
+			break;
+
+		default:
+			break;
 		}
-	}//já adicionaremos mais coisas para passar ao JSP, como uma msg de sucesso
-	
-	//doGet para listar
-	//página para listar é listar.jsp
-	//só lembrar, doGet vem de/pela URL
+
+	}// já adicionaremos mais coisas para passar ao JSP, como uma msg de sucesso
+
+	// doGet para listar
+	// página para listar é listar.jsp
+	// só lembrar, doGet vem de/pela URL
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		//lista
+		//faremos a mesma refatoração para o doGet
+		//lembrando que o parametro no doGet vem pela URL
+		String acao = req.getParameter("acao");
+		
+		switch (acao) {
+		case "listar":
+			//lógica para listar
+			listarProdutos(req, resp);
+			break;
+
+		default:
+			break;
+		}	
+
+	}
+	
+	/**
+	 * Método para listar todos os produtos
+	 * @param req
+	 * @param resp
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	private void listarProdutos(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// lista
 		List<Produto> lista = null;
-		
+
 		Connection con = null;
-		
-		try{
+
+		try {
 			con = ConexaoFactory.getInst().getConnection("youtube", "1234");
-			
-			//recuperados a lista do banco
+
+			// recuperados a lista do banco
 			lista = ProdutoBO.listar(con);
-			
-			//passamos a lista como atributo para o jsp
+
+			// passamos a lista como atributo para o jsp
 			req.setAttribute("lista", lista);
-			
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
-				if(con != null){
+				if (con != null) {
 					con.close();
 				}
 			} catch (Exception e2) {
@@ -105,7 +109,69 @@ public class ProdutoServlet extends HttpServlet{
 			}
 			req.getRequestDispatcher("listar.jsp").forward(req, resp);
 		}
-		
-		
+	}
+
+	/**
+	 * Método para cadastrar Produto
+	 * 
+	 * @param req
+	 * @param resp
+	 * @param produto
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	private void cadastrarProduto(HttpServletRequest req, HttpServletResponse resp, Produto produto)
+			throws ServletException, IOException {
+		// Objeto Connection
+		Connection con = null;
+
+		try {
+			// Abrir a conexão
+			con = ConexaoFactory.getInst().getConnection("youtube", "1234");
+			// Chamar o BO para validar a regra de negócio e efetuar
+			// operação no banco chamando DAO
+			ProdutoBO.cadastrar(produto, con);
+
+			// adicionar uma mensagem de sucesso
+			// vou usar bootstrap no jsp
+			req.setAttribute("tipoMensagem", "alert alert-success");
+			req.setAttribute("mensagem", "Cadastro realizado com sucesso!");
+
+		} catch (Exception e) {
+			// modificar de local para retornar a mensagem
+			req.setAttribute("tipoMensagem", "alert alert-danger");
+			req.setAttribute("mensagem", "Cadastro NÃO realizado!");
+			e.printStackTrace();
+		} finally {
+			// como abrimos uma conexão a mesma deve ser fechada
+			try {
+				if (con != null) {
+					con.close();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+
+			}
+			// efetuado o cadastro ou não mandamos para a tela cadastrar.jsp
+			req.getRequestDispatcher("cadastrar.jsp").forward(req, resp);
+		}
+	}
+
+	/**
+	 * Método que retorna um Produto
+	 * 
+	 * @param req
+	 * @return
+	 */
+	private Produto pegarProduto(HttpServletRequest req) {
+		// Esses parametros são o names no formulário na página JSP
+		// Já faremos o formulário
+		String nome = req.getParameter("nome");
+		String valor = req.getParameter("valor");
+
+		// Objeto Produto para cadastrar (deve ter um construtor adquado,
+		// vamos modificar)
+		Produto produto = new Produto(nome, Double.parseDouble(valor));
+		return produto;
 	}
 }
