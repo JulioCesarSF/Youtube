@@ -1,0 +1,31 @@
+package br.com.julio.Servlet;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+//Servlet é o controller no caso
+//Ele quem vai fazer a comunicação entre o JSP e o Back-end
+//Ele herda a HttpServlet
+@SuppressWarnings("serial")
+public class ProdutoServlet extends HttpServlet{
+
+	
+	//doPost para cadastrar
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//Esses parametros são o names no formulário na página JSP
+		//Já faremos o formulário
+		String nome = req.getParameter("nome");
+		String valor = req.getParameter("valor");
+		
+		
+	}
+	
+	
+	//doGet para listar
+	
+}

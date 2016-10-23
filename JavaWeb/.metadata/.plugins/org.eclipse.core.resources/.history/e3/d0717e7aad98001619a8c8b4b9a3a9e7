@@ -1,0 +1,22 @@
+package br.com.julio.DAO;
+
+import java.sql.Connection;
+import java.util.List;
+
+import br.com.julio.beans.Produto;
+
+public class ProdutoDAO implements IProduto {
+
+	@Override
+	public void adicionar(Produto produto, Connection con) throws Exception {
+		
+		
+	}
+
+	@Override
+	public List<Produto> listar(Connection con) throws Exception {
+		
+		return null;
+	}
+
+}

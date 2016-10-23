@@ -1,0 +1,32 @@
+package br.com.julio.Testes;
+
+import java.sql.Connection;
+
+import br.com.julio.Conexao.ConexaoFactory;
+
+//Conexao testada e funcionando.
+public class TesteConexao {
+
+	public static void main(String[] args) throws Exception{
+		
+		Connection con = null;
+		
+		try {
+			con = ConexaoFactory.getInst().getConnection("youtube", "1234");
+			System.out.println("Conexão aberta");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(con != null){
+					con.close();
+					System.out.println("Conexão fechada");
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+
+	}
+
+}

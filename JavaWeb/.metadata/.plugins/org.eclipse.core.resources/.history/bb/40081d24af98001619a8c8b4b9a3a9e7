@@ -1,0 +1,59 @@
+package br.com.julio.Servlet;
+
+import java.io.IOException;
+import java.sql.Connection;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import br.com.julio.BO.ProdutoBO;
+import br.com.julio.Conexao.ConexaoFactory;
+import br.com.julio.beans.Produto;
+
+//Servlet é o controller no caso
+//Ele quem vai fazer a comunicação entre o JSP e o Back-end
+//Ele herda a HttpServlet
+@SuppressWarnings("serial")
+public class ProdutoServlet extends HttpServlet{
+
+	
+	//doPost para cadastrar
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//Esses parametros são o names no formulário na página JSP
+		//Já faremos o formulário
+		String nome = req.getParameter("nome");
+		String valor = req.getParameter("valor");
+		
+		//Objeto Produto para cadastrar (deve ter um construtor adquado, vamos modificar)
+		Produto produto = new Produto(nome, Double.parseDouble(valor));
+		
+		//Objeto Connection
+		Connection con = null;
+		
+		try {
+			//Abrir a conexão
+			con = ConexaoFactory.getInst().getConnection("youtube", "1234");
+			//Chamar o BO para validar a regra de negócio e efetuar
+			//operação no banco chamando DAO
+			ProdutoBO.cadastrar(produto, con);
+			
+		} catch (Exception e) {			
+			e.printStackTrace();			
+		}finally {
+			//como abrimos uma conexão a mesma deve ser fechada
+			try {
+				if(con != null){
+					con.close();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}//já adicionaremos mais coisas para passar ao JSP, como uma msg de sucesso
+	
+	//doGet para listar
+	
+}
