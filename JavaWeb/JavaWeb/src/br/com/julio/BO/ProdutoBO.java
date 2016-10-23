@@ -15,6 +15,9 @@ public abstract class ProdutoBO {
 		if(produto.getNome().length() < 2){
 			throw new Exception("Nome inválido");
 		}
+		if(produto.getValor() <= 0){
+			throw new Exception("Valor inválido");
+		}
 		//Chamar o DAO correspondente para efetuar a operação no banco
 		new ProdutoDAO().adicionar(produto, con);
 	}

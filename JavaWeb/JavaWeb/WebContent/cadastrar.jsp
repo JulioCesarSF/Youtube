@@ -11,6 +11,11 @@
 <body>
 
 <div class="container">
+
+	<!-- vamos incluir o arquivo do menu -->
+	
+	<%@ include file="menu.jsp" %>
+
 	<div class="row">
 		<div class="col-md-12">
 			<div class="page-header"><h1>Cadastrar Produto</h1></div>
@@ -22,6 +27,8 @@
 		<div class="col-md-12">
 			<div class="${tipoMensagem }">
 				<p>${mensagem }</p>
+				<!-- vamos adicionar a mensagem de erro da Exception -->
+				<p>${erro }</p>
 			</div>
 		</div>
 	</div>
@@ -52,13 +59,13 @@
 			</form>
 			
 		</div>
-		<!-- para mandar a acao devemos passar pela URL -->
+		<%-- <!-- para mandar a acao devemos passar pela URL -->
 		<c:url var="link" value="Produto">
 			<c:param name="acao" value="listar"></c:param>
 		</c:url>
 		
 		<!-- no próximo vídeo faremos um menu -->
-		<a href="${link }" class="btn btn-success">Listar</a>
+		<a href="${link }" class="btn btn-success">Listar</a> --%>
 	</div>
 	
 </div>

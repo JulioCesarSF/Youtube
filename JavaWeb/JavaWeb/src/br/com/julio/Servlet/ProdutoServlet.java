@@ -141,6 +141,7 @@ public class ProdutoServlet extends HttpServlet {
 			// modificar de local para retornar a mensagem
 			req.setAttribute("tipoMensagem", "alert alert-danger");
 			req.setAttribute("mensagem", "Cadastro NÃO realizado!");
+			req.setAttribute("erro", e.getMessage());
 			e.printStackTrace();
 		} finally {
 			// como abrimos uma conexão a mesma deve ser fechada
@@ -168,6 +169,11 @@ public class ProdutoServlet extends HttpServlet {
 		// Já faremos o formulário
 		String nome = req.getParameter("nome");
 		String valor = req.getParameter("valor");
+		
+		//vamos verificar o valor 
+		if(valor.isEmpty()){
+			valor = "0";
+		}
 
 		// Objeto Produto para cadastrar (deve ter um construtor adquado,
 		// vamos modificar)
