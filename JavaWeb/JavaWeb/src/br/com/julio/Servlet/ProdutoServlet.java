@@ -58,25 +58,28 @@ public class ProdutoServlet extends HttpServlet {
 	// só lembrar, doGet vem de/pela URL
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		//faremos a mesma refatoração para o doGet
-		//lembrando que o parametro no doGet vem pela URL
+
+		// faremos a mesma refatoração para o doGet
+		// lembrando que o parametro no doGet vem pela URL
 		String acao = req.getParameter("acao");
-		
+
 		switch (acao) {
 		case "listar":
-			//lógica para listar
+			// lógica para listar
 			listarProdutos(req, resp);
 			break;
 
+		case "procurar":
+			procurarProduto(req, resp);
 		default:
 			break;
-		}	
+		}
 
 	}
-	
+
 	/**
 	 * Método para listar todos os produtos
+	 * 
 	 * @param req
 	 * @param resp
 	 * @throws ServletException
@@ -169,9 +172,9 @@ public class ProdutoServlet extends HttpServlet {
 		// Já faremos o formulário
 		String nome = req.getParameter("nome");
 		String valor = req.getParameter("valor");
-		
-		//vamos verificar o valor 
-		if(valor.isEmpty()){
+
+		// vamos verificar o valor
+		if (valor.isEmpty()) {
 			valor = "0";
 		}
 
@@ -179,5 +182,34 @@ public class ProdutoServlet extends HttpServlet {
 		// vamos modificar)
 		Produto produto = new Produto(nome, Double.parseDouble(valor));
 		return produto;
+	}
+
+	// métod para procurar produtos com determinada string no nome
+	private void procurarProduto(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		String nome = req.getParameter("procurar");
+
+		List<Produto> lista = null;
+
+		Connection con = null;
+
+		try {
+			con = ConexaoFactory.getInst().getConnection("youtube", "1234");
+			lista = ProdutoBO.procurarProduto(nome, con);
+			req.setAttribute("lista", lista);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (con != null) {
+					con.close();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+
+			req.getRequestDispatcher("listar.jsp").forward(req, resp);
+		}
 	}
 }

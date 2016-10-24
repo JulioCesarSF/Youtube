@@ -9,7 +9,7 @@ import java.util.List;
 import br.com.julio.beans.Produto;
 
 //No DAO ficam as operações de com o banco de dados
-public class ProdutoDAO implements IProduto {
+public class ProdutoDAO implements IProduto<Produto, String> {
 
 	/**
 	 * Método para cadastrar um produto
@@ -49,6 +49,32 @@ public class ProdutoDAO implements IProduto {
 					rS.getInt("CD_CODIGO"), 
 					rS.getString("NM_PRODUTO"), 
 					rS.getDouble("VL_VALOR")));
+		}	
+		
+		rS.close();
+		pStmt.close();
+		
+		return lista;
+	}
+	/**
+	 * Método para procurar produtos com determinado nome
+	 */
+	@Override
+	public List<Produto> procurar(String nome, Connection con) throws Exception {
+		List<Produto> lista = new ArrayList<>();
+		
+		String sql = "SELECT CD_CODIGO, NM_PRODUTO, VL_VALOR FROM T_PRODUTO WHERE UPPER(NM_PRODUTO) LIKE ?";
+		
+		PreparedStatement pStmt = con.prepareStatement(sql);
+		pStmt.setString(1, "%" + nome.toUpperCase() + "%");
+		ResultSet rS = pStmt.executeQuery();
+		
+		while(rS.next()){
+			lista.add(new Produto(
+					rS.getInt("CD_CODIGO"),
+					rS.getString("NM_PRODUTO"),
+					rS.getDouble("VL_VALOR")
+					));
 		}	
 		
 		rS.close();

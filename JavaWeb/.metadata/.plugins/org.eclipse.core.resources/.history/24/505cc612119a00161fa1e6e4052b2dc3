@@ -1,0 +1,60 @@
+package br.com.julio.DAO;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.julio.beans.Produto;
+
+//No DAO ficam as operações de com o banco de dados
+public class ProdutoDAO implements IProduto {
+
+	/**
+	 * Método para cadastrar um produto
+	 */
+	@Override
+	public void adicionar(Produto produto, Connection con) throws Exception {
+		//tinha um erro no sql
+		String sql = "INSERT INTO T_PRODUTO (CD_CODIGO, NM_PRODUTO, VL_VALOR)"
+				+ " VALUES(SQ_PRODUTO.NEXTVAL, ?, ?)";
+		
+		PreparedStatement pStmt = con.prepareStatement(sql);
+		pStmt.setString(1, produto.getNome());
+		pStmt.setDouble(2, produto.getValor());
+		pStmt.execute();
+		pStmt.close();		
+	}
+	
+	/**
+	 * Método para consultar todos os produto cadastrados.
+	 */
+	@Override
+	public List<Produto> listar(Connection con) throws Exception {
+		//Lista com todos os produtos retornados do banco
+		List<Produto> lista = new ArrayList<>();
+		
+		//SQL
+		String sql = "SELECT CD_CODIGO, NM_PRODUTO, VL_VALOR FROM T_PRODUTO ORDER BY VL_VALOR ASC";
+		
+		PreparedStatement pStmt = con.prepareStatement(sql);
+		//ResultSet para pegar o resultado da consulta
+		ResultSet rS = pStmt.executeQuery();
+		
+		//Adicionar os resultado na lista
+		
+		while(rS.next()){
+			lista.add(new Produto(
+					rS.getInt("CD_CODIGO"), 
+					rS.getString("NM_PRODUTO"), 
+					rS.getDouble("VL_VALOR")));
+		}	
+		
+		rS.close();
+		pStmt.close();
+		
+		return lista;
+	}
+
+}

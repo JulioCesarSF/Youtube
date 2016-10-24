@@ -1,3 +1,4 @@
 1477242306980	Extract method 'pegarProduto'
 1477242343339	Extract method 'cadastrarProduto'
 1477242516325	Extract method 'listarProdutos'
+1477331274886	Extract method 'procurarProduto'

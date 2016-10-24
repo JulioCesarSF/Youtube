@@ -23,6 +23,29 @@
 				</div>
 			</div>
 		</div>
+		
+		<!-- formulário para busca -->
+		
+		<div class="row">
+			<div class="col-md-12">
+				<form action="Produto" action="get">
+				<input type="hidden" name="acao" value="procurar">
+				
+					<div class="col-md-1">
+						<label for="idBusca">Buscar</label>
+					</div>			
+					
+					<div class="col-md-3">
+						<input type="text" name="procurar" placeholder="Nome do produto" class="form-control">
+					</div>
+					
+					<div class="col-md-3">
+						<input type="submit" value="Buscar" class="btn btn-primary">
+					</div>			
+				</form>
+			</div>		
+		</div>
+		
 
 		<div class="row">
 			<div class="col-md-12">

@@ -19,7 +19,7 @@ existem várias classes do navbar, vou pegar no site do bootstrap
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">Produtos</a>
+			<a class="navbar-brand" href="index.jsp">Produtos</a>
 		</div>
 
 		<!-- Collect the nav links, forms, and other content for toggling -->

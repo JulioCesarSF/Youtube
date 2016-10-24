@@ -26,4 +26,12 @@ public abstract class ProdutoBO {
 		return new ProdutoDAO().listar(con);
 	}
 	
+	public static List<Produto> procurarProduto(String nome, Connection con) throws Exception{
+		if(nome.length() < 2){
+			throw new Exception("Nome de busca inválido");
+		}
+		
+		return new ProdutoDAO().procurar(nome, con);
+	}
+	
 }
